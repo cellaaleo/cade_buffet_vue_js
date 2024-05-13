@@ -9,6 +9,10 @@ const app = Vue.createApp({
         }
     },
 
+    async mounted(){
+        await this.getData();
+    },
+
     methods:{
         async getData(){
             let response = await fetch('http://localhost:3000/api/v1/venues/');

@@ -9,8 +9,6 @@
     <h1>Cadê Buffet?</h1>
 
     <div id="app">
-        <button v-on:click="getData">Carregar dados</button>
-
         <ul>
             <li v-for="venue in venuesList">
                 {{venue.brandName}} - {{ venue.city }}/{{ venue.state }}
