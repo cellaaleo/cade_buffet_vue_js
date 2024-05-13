@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadê Buffet?</title>
+</head>
+<body>
+    <h1>Cadê Buffet?</h1>
+
+    <div id="app">
+        <button v-on:click="getData">Carregar dados</button>
+
+        <ul>
+            <li v-for="venue in venuesList">
+                {{venue.brandName}} - {{ venue.city }}/{{ venue.state }}
+            </li>
+        </ul>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
