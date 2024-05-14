@@ -5,9 +5,13 @@ const app = Vue.createApp({
             venuesList: [],
             show: true,
             venue: {},
+
+            queryEvent: '',
             queryDate: '',
-            orderExists: false,
+            queryGuests: '',
             isAvailable: false,
+            quotation: '',
+            error: null,
         }
     },
 
@@ -50,6 +54,7 @@ const app = Vue.createApp({
             console.log(data);
             this.show = false;
 
+            this.venue.id = data.id;
             this.venue.brandName = data.brand_name;
             this.venue.description = data.description;
             this.venue.address = data.address;
@@ -61,10 +66,10 @@ const app = Vue.createApp({
             this.venue.email = data.email;
             this.venue.phone = data.phone_number;
             this.venue.events = [];
-            this.venue.orders = [];
 
             data.events.forEach(item => {
                 var event = new Object();
+                event.id = item.id;
                 event.name = item.name;
                 event.description = item.description;
                 event.menu = item.menu;
@@ -79,34 +84,49 @@ const app = Vue.createApp({
 
                 this.venue.events.push(event);
             })
-
-            data.orders.forEach(item => {
-                var order = new Object();
-
-                if(item.status == 'confirmed'){
-                    order.date = item.event_date;
-                    this.venue.orders.push(order);
-                }
-            })
         },
 
         refresh(){
             this.show = true;
             this.searchText = '';
+            this.queryEvent = '';
             this.queryDate = '';
-            this.orderExists = false;
+            this.queryGuests = '';
+            this.error = null;
             this.isAvailable = false;
+            this.quotation = '';
         },
 
-        checkDate() {
-            this.orderExists = this.venue.orders.some(order => order.date === this.queryDate);
-
-            if(this.orderExists){
-                this.isAvailable = false;
-            }else{
-                this.isAvailable = true;
+        async availability(){
+            // Verifica se os campos estão preenchidos
+            if((!this.queryDate || !this.queryGuests) || (!this.queryEvent)) {
+                return alert('Por favor, preencha todos os campos.');
             }
-          },
+
+            // Inicializa o estado de disponibilidade, orçamento e erro
+            this.isAvailable = false;
+            this.quotation = '';
+            this.error = null;
+
+            try {
+                let response = await fetch(`http://localhost:3000/api/v1/venues/${this.venue.id}/events/${this.queryEvent}/availability?date=${this.queryDate}&guests=${this.queryGuests}`);
+                let data = await response.json();
+
+                if(response.ok){
+                    this.isAvailable = true;
+                    this.quotation = data.valor_final_estimado;
+                }else{
+                    this.error = data.error;
+                }
+            } catch (error) {
+                console.error('Erro ao buscar pedidos:', error);
+                if (error.name === 'TypeError' && error.message.includes('NetworkError')) {
+                    this.error = 'Erro de rede ao tentar acessar o recurso. Verifique sua conexão ou tente novamente mais tarde.';
+                } else {
+                    this.error = data.error;
+                }
+            }
+        }
     },
 })
 

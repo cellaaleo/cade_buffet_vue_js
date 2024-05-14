@@ -8,6 +8,6 @@ No campo "Digite o nome do buffet" é possível filtrar a lista de buffets pelo 
 Ao clicar no nome de um buffet, é possível: 
 - ver detalhes sobre o buffet;
 - ver os eventos que realiza caso estejam cadastrados;
-- pesquisar disponibilidade do buffet ao informar uma data.
+- pesquisar disponibilidade do buffet ao informar o código do evento, uma data e o número de convidados.
 
 Para voltar na página inical, clicar em "Cadê Buffet?"

@@ -32,9 +32,14 @@
                 <h1>{{ venue.brandName }}</h1>
                 <section class="check-date">
                     <p>Verifique a disponibilidade do buffet para realizar um evento, indicando uma data:</p>
-                    <input type="date" v-model="queryDate" @input="checkDate" />
-                    <p v-if="orderExists" style="color:red">O buffet já está reservado para a data escolhida.</p>
+                    <!--<input type="date" v-model="queryDate" @input="checkDate" />-->
+                    <input type="text" v-model="queryEvent" placeholder="código do evento">
+                    <input type="date" v-model="queryDate">
+                    <input type="text" v-model="queryGuests" placeholder="nº de convidados">
+                    <button v-on:click="availability">Pesquisar</button>
                     <p v-if="isAvailable" style="color:darkgreen">O buffet está disponível para esta data!</p>
+                    <p v-if="quotation" style="color:blue">Valor estimado: R$ {{ quotation }},00</p>
+                    <p v-if="error" style="color:red">{{ error }}</p>
                 </section>
                 
                 <p>
@@ -57,7 +62,7 @@
                     </div>
                     <ul>
                         <li v-for="event in venue.events">
-                            <strong>{{ event.name }}</strong>
+                            <strong>{{ event.name }} - cód:{{ event.id}}</strong>
                             <p>Descrição: {{ event.description }}</p>
                             <p>Menu: {{ event.menu }}</p>
                             <p>Duração: {{ event.duration }} minutos</p>
