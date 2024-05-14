@@ -1,16 +1,25 @@
 const app = Vue.createApp({
     data(){
         return{
-            brandName: '',
-            city: '',
-            state: '',
-
+            searchText: '',
             venuesList: [],
         }
     },
 
     async mounted(){
         await this.getData();
+    },
+
+    computed:{
+        listResult(){
+            if(this.searchText){
+                return this.venuesList.filter(venue => {
+                    return venue.brandName.toLowerCase().includes(this.searchText.toLowerCase());
+                });
+            }else{
+                return this.venuesList
+            }
+        }
     },
 
     methods:{

@@ -7,10 +7,12 @@
 </head>
 <body>
     <h1>Cadê Buffet?</h1>
-
+    
     <div id="app">
+        <input type="text" v-model="searchText" placeholder="Digite o nome do buffet">
+
         <ul>
-            <li v-for="venue in venuesList">
+            <li v-for="venue in listResult">
                 {{venue.brandName}} - {{ venue.city }}/{{ venue.state }}
             </li>
         </ul>
