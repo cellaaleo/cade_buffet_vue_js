@@ -1,0 +1,25 @@
+body {
+    font-family: sans-serif;
+}
+
+.title {
+    background-color: white;
+    border: none;
+}
+
+.venues-list ul li {
+    list-style: none;
+}
+
+.venues-list button {
+    background-color: white;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0;
+}
+
+.title,
+.venues-list button:hover {
+    cursor: pointer;
+  }

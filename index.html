@@ -1,21 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadê Buffet?</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Cadê Buffet?</h1>
-    
     <div id="app">
-        <input type="text" v-model="searchText" placeholder="Digite o nome do buffet">
+        <button class="title" v-on:click="refresh()"><h1>Cadê Buffet?</h1></button>
+        
+        <div class="venues-list" v-if="!show">
+            <input type="text" v-model="searchText" placeholder="Digite o nome do buffet">
+            <div class="msg" v-if="listResult.length <= 0">
+                Nenhum buffet encontrado!
+            </div>
+            <ul>
+                <li v-for="venue in listResult">
+                    <button v-on:click="showVenue(venue.id)">{{venue.brandName}}</button>
+                    - {{ venue.city }}/{{ venue.state }}
+                </li>
+            </ul>
+        </div>
 
-        <ul>
-            <li v-for="venue in listResult">
-                {{venue.brandName}} - {{ venue.city }}/{{ venue.state }}
-            </li>
-        </ul>
+        <div class="venue-details" v-if="show">
+            <h1>{{ venue.brandName }}</h1>
+            <p>
+                <strong>Endereço:</strong> 
+                {{ venue.address }} - {{ venue.district }} - {{ venue.city }}/{{ venue.state }} - {{ venue.zipCode }}
+            </p>
+            <p><strong>Descrição:</strong> {{ venue.description }}</p>
+
+            <h2>Contatos:</h2>
+            <p><strong>email:</strong> {{ venue.email }}</p>
+            <p><strong>tel.:</strong> {{ venue.phone }}</p>
+
+            <h2>Outras informações:</h2>
+            <p><strong>Meios de pagamentos aceitos:</strong> {{ venue.paymentMethods }}</p>
+        </div>
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
