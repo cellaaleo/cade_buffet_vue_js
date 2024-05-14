@@ -5,5 +5,5 @@ Rodar o rails server da app Cadê Buffet (localhost:3000) e abrir a página dest
 
 No campo "Digite o nome do buffet" é possível filtrar a lista de buffets pelo nome fantasia.
 
-Ao clicar no nome de um buffet, é possível ver mais detalhes sobre ele.
+Ao clicar no nome de um buffet, é possível ver mais detalhes sobre sobre ele e dos eventos que realiza caso estejam cadastrados.
 Para voltar na página inical, clicar em "Cadê Buffet?"

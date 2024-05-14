@@ -5,6 +5,7 @@ const app = Vue.createApp({
             venuesList: [],
             show: false,
             venue: {},
+            events: [],
         }
     },
 
@@ -57,6 +58,23 @@ const app = Vue.createApp({
             this.venue.paymentMethods = data.payment_methods;
             this.venue.email = data.email;
             this.venue.phone = data.phone_number;
+
+            data.events.forEach(item => {
+                var event = new Object();
+                event.name = item.name;
+                event.description = item.description;
+                event.menu = item.menu;
+                event.duration = item.duration;
+                event.min = item.minimum_guests_number;
+                event.max = item.maximum_guests_number;
+                event.drinks = item.has_alcoholic_drinks;
+                event.decor = item.has_decorations;
+                event.parking = item.has_parking_service;
+                event.valet = item.has_valet_service;
+                event.catering = item.can_be_catering;
+
+                this.events.push(event);
+            })
         },
 
         refresh(){

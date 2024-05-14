@@ -31,12 +31,36 @@
             </p>
             <p><strong>Descrição:</strong> {{ venue.description }}</p>
 
+            
+
             <h2>Contatos:</h2>
             <p><strong>email:</strong> {{ venue.email }}</p>
             <p><strong>tel.:</strong> {{ venue.phone }}</p>
 
             <h2>Outras informações:</h2>
             <p><strong>Meios de pagamentos aceitos:</strong> {{ venue.paymentMethods }}</p>
+
+            <div class="events">
+                <h2>Eventos que realizamos:</h2>
+                <div class="msg" v-if="events.length <= 0">
+                    Nenhum evento encontrado!
+                </div>
+                <ul>
+                    <li v-for="event in events">
+                        <strong>{{ event.name }}</strong>
+                        <p>Descrição: {{ event.description }}</p>
+                        <p>Menu: {{ event.menu }}</p>
+                        <p>Duração: {{ event.duration }} minutos</p>
+                        <p>Mínimo de convidados: {{ event.min }}</p>
+                        <p>Máximo de convidados: {{ event.max }}</p>
+                        <p v-if="event.parking">Oferecemos serviço de estacionamento</p>
+                        <p v-if="event.valet">Oferecemos serviço de valet</p> 
+                        <p v-if="event.drinks">Fornecemos bebidas alcoólicas</p> 
+                        <p v-if="event.decor">Oferecemos serviço de decoração</p> 
+                        <p v-if="event.catering">Nosso serviço de buffet pode ser realizado em outro espaço de sua preferência.</p> 
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 

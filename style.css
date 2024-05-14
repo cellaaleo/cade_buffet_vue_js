@@ -5,6 +5,7 @@ body {
 .title {
     background-color: white;
     border: none;
+    font-size: 2rem;
 }
 
 .venues-list ul li {
