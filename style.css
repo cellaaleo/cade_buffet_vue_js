@@ -24,3 +24,14 @@ body {
 .venues-list button:hover {
     cursor: pointer;
   }
+
+.check-date {
+    background-color: rgb(203, 202, 206);
+    padding-top: 1px;
+}
+
+.check-date input {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}

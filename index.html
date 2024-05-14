@@ -8,60 +8,71 @@
 </head>
 <body>
     <div id="app">
-        <button class="title" v-on:click="refresh()"><h1>Cadê Buffet?</h1></button>
+        <header>
+            <button class="title" v-on:click="refresh()">
+                <h1>Cadê Buffet?</h1>
+            </button>
+        </header>
         
-        <div class="venues-list" v-if="!show">
-            <input type="text" v-model="searchText" placeholder="Digite o nome do buffet">
-            <div class="msg" v-if="listResult.length <= 0">
-                Nenhum buffet encontrado!
-            </div>
-            <ul>
-                <li v-for="venue in listResult">
-                    <button v-on:click="showVenue(venue.id)">{{venue.brandName}}</button>
-                    - {{ venue.city }}/{{ venue.state }}
-                </li>
-            </ul>
-        </div>
-
-        <div class="venue-details" v-if="show">
-            <h1>{{ venue.brandName }}</h1>
-            <p>
-                <strong>Endereço:</strong> 
-                {{ venue.address }} - {{ venue.district }} - {{ venue.city }}/{{ venue.state }} - {{ venue.zipCode }}
-            </p>
-            <p><strong>Descrição:</strong> {{ venue.description }}</p>
-
-            
-
-            <h2>Contatos:</h2>
-            <p><strong>email:</strong> {{ venue.email }}</p>
-            <p><strong>tel.:</strong> {{ venue.phone }}</p>
-
-            <h2>Outras informações:</h2>
-            <p><strong>Meios de pagamentos aceitos:</strong> {{ venue.paymentMethods }}</p>
-
-            <div class="events">
-                <h2>Eventos que realizamos:</h2>
-                <div class="msg" v-if="events.length <= 0">
-                    Nenhum evento encontrado!
+        <main>
+            <div class="venues-list" v-if="show">
+                <input type="text" v-model="searchText" placeholder="Digite o nome do buffet">
+                <div class="msg" v-if="listResult.length <= 0">
+                    Nenhum buffet encontrado!
                 </div>
                 <ul>
-                    <li v-for="event in events">
-                        <strong>{{ event.name }}</strong>
-                        <p>Descrição: {{ event.description }}</p>
-                        <p>Menu: {{ event.menu }}</p>
-                        <p>Duração: {{ event.duration }} minutos</p>
-                        <p>Mínimo de convidados: {{ event.min }}</p>
-                        <p>Máximo de convidados: {{ event.max }}</p>
-                        <p v-if="event.parking">Oferecemos serviço de estacionamento</p>
-                        <p v-if="event.valet">Oferecemos serviço de valet</p> 
-                        <p v-if="event.drinks">Fornecemos bebidas alcoólicas</p> 
-                        <p v-if="event.decor">Oferecemos serviço de decoração</p> 
-                        <p v-if="event.catering">Nosso serviço de buffet pode ser realizado em outro espaço de sua preferência.</p> 
+                    <li v-for="venue in listResult">
+                        <button v-on:click="showVenue(venue.id)">{{venue.brandName}}</button>
+                        - {{ venue.city }}/{{ venue.state }}
                     </li>
                 </ul>
             </div>
-        </div>
+    
+            <div class="venue-details" v-else>
+                <h1>{{ venue.brandName }}</h1>
+                <section class="check-date">
+                    <p>Verifique a disponibilidade do buffet para realizar um evento, indicando uma data:</p>
+                    <input type="date" v-model="queryDate" @input="checkDate" />
+                    <p v-if="orderExists" style="color:red">O buffet já está reservado para a data escolhida.</p>
+                    <p v-if="isAvailable" style="color:darkgreen">O buffet está disponível para esta data!</p>
+                </section>
+                
+                <p>
+                    <strong>Endereço:</strong> 
+                    {{ venue.address }} - {{ venue.district }} - {{ venue.city }}/{{ venue.state }} - CEP: {{ venue.zipCode }}
+                </p>
+                <p><strong>Descrição:</strong> {{ venue.description }}</p>
+                
+                <h2>Contatos:</h2>
+                <p><strong>email:</strong> {{ venue.email }}</p>
+                <p><strong>tel.:</strong> {{ venue.phone }}</p>
+    
+                <h2>Outras informações:</h2>
+                <p><strong>Meios de pagamentos aceitos:</strong> {{ venue.paymentMethods }}</p>
+    
+                <section class="events">
+                    <h2>Eventos que realizamos:</h2>
+                    <div class="msg" v-if="venue.events.length <= 0">
+                        Nenhum evento encontrado!
+                    </div>
+                    <ul>
+                        <li v-for="event in venue.events">
+                            <strong>{{ event.name }}</strong>
+                            <p>Descrição: {{ event.description }}</p>
+                            <p>Menu: {{ event.menu }}</p>
+                            <p>Duração: {{ event.duration }} minutos</p>
+                            <p>Mínimo de convidados: {{ event.min }}</p>
+                            <p>Máximo de convidados: {{ event.max }}</p>
+                            <p v-if="event.parking">Oferecemos serviço de estacionamento</p>
+                            <p v-if="event.valet">Oferecemos serviço de valet</p> 
+                            <p v-if="event.drinks">Fornecemos bebidas alcoólicas</p> 
+                            <p v-if="event.decor">Oferecemos serviço de decoração</p> 
+                            <p v-if="event.catering">Nosso serviço de buffet pode ser realizado em outro espaço de sua preferência.</p> 
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </main>
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

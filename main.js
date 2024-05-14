@@ -3,9 +3,11 @@ const app = Vue.createApp({
         return{
             searchText: '',
             venuesList: [],
-            show: false,
+            show: true,
             venue: {},
-            events: [],
+            queryDate: '',
+            orderExists: false,
+            isAvailable: false,
         }
     },
 
@@ -46,7 +48,7 @@ const app = Vue.createApp({
             let response = await fetch(`http://localhost:3000/api/v1/venues/${id}`);
             let data = await response.json();
             console.log(data);
-            this.show = true;
+            this.show = false;
 
             this.venue.brandName = data.brand_name;
             this.venue.description = data.description;
@@ -58,6 +60,8 @@ const app = Vue.createApp({
             this.venue.paymentMethods = data.payment_methods;
             this.venue.email = data.email;
             this.venue.phone = data.phone_number;
+            this.venue.events = [];
+            this.venue.orders = [];
 
             data.events.forEach(item => {
                 var event = new Object();
@@ -73,16 +77,37 @@ const app = Vue.createApp({
                 event.valet = item.has_valet_service;
                 event.catering = item.can_be_catering;
 
-                this.events.push(event);
+                this.venue.events.push(event);
+            })
+
+            data.orders.forEach(item => {
+                var order = new Object();
+
+                if(item.status == 'confirmed'){
+                    order.date = item.event_date;
+                    this.venue.orders.push(order);
+                }
             })
         },
 
         refresh(){
-            this.show = false;
+            this.show = true;
             this.searchText = '';
-        }
+            this.queryDate = '';
+            this.orderExists = false;
+            this.isAvailable = false;
+        },
+
+        checkDate() {
+            this.orderExists = this.venue.orders.some(order => order.date === this.queryDate);
+
+            if(this.orderExists){
+                this.isAvailable = false;
+            }else{
+                this.isAvailable = true;
+            }
+          },
     },
-    
 })
 
 app.mount('#app');
