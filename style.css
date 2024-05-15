@@ -1,11 +1,41 @@
 body {
     font-family: sans-serif;
+    color: #495057;
+}
+
+header {
+    background-color: #f8d7da;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .title {
-    background-color: white;
+    background-color: #f8d7da;
+    color: #495057;
     border: none;
-    font-size: 2rem;
+    font-size: 4rem;
+}
+
+
+/* PÁGINA INICIAL */
+.venues-list {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.search-field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.venues-list input {
+    margin-bottom: 40px;
+    width: 300px;
+    border-radius: 5px;
 }
 
 .venues-list ul li {
@@ -14,9 +44,10 @@ body {
 
 .venues-list button {
     background-color: white;
+    color:  #495057;
     border: none;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: bolder;
     padding: 0;
 }
 
@@ -25,13 +56,59 @@ body {
     cursor: pointer;
   }
 
-.check-date {
-    background-color: rgb(203, 202, 206);
-    padding-top: 1px;
+/* DETALHES DE UM BUFFET */
+.venue-details {
+    width: 80%;
+    margin: 30px auto;
 }
 
-.check-date input {
+.venue-details h4 {
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.venue-details h1 {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.check-availability {
+    width: 700px;
+    background-color: #e9ecef;
+    margin: 30px auto;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+}
+
+.check-availability p {
+    font-weight: bold;
+}
+
+.check-availability button {
+    margin-left: 8px;
+}
+
+.check-availability input {
     margin-left: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
+}
+
+
+/* EVENTOS DE UM BUFFET */
+.events li {
+    list-style: none;
+}
+
+.card-body h5 {
+    text-align: center;
+    
+    background-color: #ced4da;
+    padding:  5px 0;
+}
+
+.card-text p {
+    font-size: 0.9rem;
 }
